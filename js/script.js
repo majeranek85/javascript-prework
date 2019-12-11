@@ -1,4 +1,7 @@
 {
+let PlayerScore = 0;
+let ComputerScore = 0;
+
 const playGame = function(playerInput){
 
   clearMessages();
@@ -24,10 +27,11 @@ const playGame = function(playerInput){
   console.log('Gracz wpisał: ' + playerInput);
   const argPlayerMove = getMoveName(playerInput);
 
-  const displayResult = function(argComputerMove, argPlayerMove) {
+  const displayResult = function() {
     printMessage('Zagrałem ' + argComputerMove + ', a Ty ' + argPlayerMove);
 
     if (argComputerMove == 'kamień' && argPlayerMove == 'papier' || argComputerMove == 'papier' && argPlayerMove == 'nożyce' || argComputerMove == 'nożyce' && argPlayerMove == 'kamień'){
+      PlayerScore++;
       printMessage('Ty wygrywasz!');
     } else if (argComputerMove == argPlayerMove) {
       printMessage('Remis!');
@@ -35,10 +39,16 @@ const playGame = function(playerInput){
       printMessage('Nie wybrałeś poprawnego ruchu! Wybierz: 1-papier, 2-kamień lub 3-nożyce.');
     } else {
       printMessage('Ty przegrywasz :(');
+      ComputerScore++;
     }
   }
 
-  displayResult(argComputerMove, argPlayerMove);
+  displayResult();
+  score();
+}
+
+const score = function(){
+  document.getElementById('result').innerHTML = 'Gracz:' + PlayerScore + '-' + ComputerScore + 'Komputer'
 }
 
 document.getElementById('play-rock').addEventListener('click', function() {
